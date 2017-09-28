@@ -4,7 +4,7 @@ module Web::Controllers::Things
     include ScoutApm::Tracer
 
     def call(params)
-      self.class.instrument('Foo', 'Controller/Index') {
+      self.class.instrument('Controller', 'Things/Index') {
         sleep 10
         self.body = 'OK'
       }
