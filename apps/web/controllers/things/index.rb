@@ -4,10 +4,12 @@ module Web::Controllers::Things
     include ScoutApm::Tracer
 
     def call(params)
-      self.class.instrument('Controller', 'Things/Index') {
-        sleep 10
-        self.body = 'OK'
-      }
+      ScoutApm::Rack.transaction("Things Listing", params.env) do
+        self.class.instrument('Controller', 'Things/Index') {
+          sleep 10
+          self.body = 'OK'
+        }
+      end
     end
   end
 end
